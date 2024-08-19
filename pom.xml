@@ -64,6 +64,12 @@
 			<version>1.5.3.Final</version>
 		</dependency>
 
+<!--		<dependency>-->
+<!--			<groupId>org.springdoc</groupId>-->
+<!--			<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>-->
+<!--			<version>3.0.0</version> &lt;!&ndash; Check for the latest version &ndash;&gt;-->
+<!--		</dependency>-->
+
 	</dependencies>
 
 	<build>
