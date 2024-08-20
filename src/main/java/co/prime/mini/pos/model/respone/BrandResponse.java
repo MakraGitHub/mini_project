@@ -1,9 +1,9 @@
-package co.prime.mini.pos.resquest;
+package co.prime.mini.pos.model.respone;
 
 import lombok.Data;
 
 @Data
-public class BrandReponse {
+public class BrandResponse {
     private Integer id;
     private String name;
 }

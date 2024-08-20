@@ -1,4 +1,4 @@
-package co.prime.mini.pos.respone;
+package co.prime.mini.pos.model.request;
 
 
 import jakarta.validation.constraints.NotBlank;

@@ -1,4 +1,4 @@
-package co.prime.mini.pos.entity;
+package co.prime.mini.pos.model.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -13,5 +13,7 @@ public class Brand {
     private Long id;
     @Column(name = "brand_name")
     private String name;
+    @Column(columnDefinition = "BOOLEAN DEFAULT false")
+    private Boolean isDeleted;
 
 }

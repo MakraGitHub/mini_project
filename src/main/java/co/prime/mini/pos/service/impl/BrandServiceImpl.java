@@ -1,10 +1,10 @@
 package co.prime.mini.pos.service.impl;
 
-import co.prime.mini.pos.entity.Brand;
+import co.prime.mini.pos.model.entity.Brand;
 import co.prime.mini.pos.exception.ResourceNotFoundException;
 import co.prime.mini.pos.mapper.BrandMapper;
 import co.prime.mini.pos.repository.BrandRepository;
-import co.prime.mini.pos.resquest.BrandReponse;
+import co.prime.mini.pos.model.respone.BrandResponse;
 import co.prime.mini.pos.service.BrandService;
 import lombok.AllArgsConstructor;
 
@@ -26,7 +26,7 @@ public class BrandServiceImpl implements BrandService {
 
     @Override
     public Brand getByID(Long id) {
-        return brandRepository.findById(id)
+        return brandRepository.findByIdAndIsDeletedFalse(id)
                 .orElseThrow(()->new ResourceNotFoundException("Brand",id));
     }
 
@@ -37,18 +37,17 @@ public class BrandServiceImpl implements BrandService {
         return brandRepository.save(brand);
         
     }
-
     @Override
-    public List<BrandReponse> getBrands() {
-      return brandRepository.findAll().stream()
+    public List<BrandResponse> getBrands() {
+      return brandRepository.findByIsDeletedIsFalseOrderByIdDesc().stream()
               .map(itemBrandMapper::toDTO)
               .collect(Collectors.toList());
     }
-
    @Override
    public Brand deleteOneBrand(Long id) {
       Brand byId = getByID(id);
-      brandRepository.delete(byId);
-       return byId;
+      byId.setIsDeleted(true);
+       Brand save = brandRepository.save(byId);
+       return save;
    }
 }

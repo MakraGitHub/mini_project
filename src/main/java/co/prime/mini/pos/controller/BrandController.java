@@ -1,15 +1,14 @@
 package co.prime.mini.pos.controller;
 import co.prime.mini.pos.base.BaseApi;
-import co.prime.mini.pos.entity.Brand;
+import co.prime.mini.pos.model.entity.Brand;
 import co.prime.mini.pos.mapper.BrandMapper;
-import co.prime.mini.pos.respone.BrandRequest;
-import co.prime.mini.pos.resquest.BrandReponse;
+import co.prime.mini.pos.model.request.BrandRequest;
+import co.prime.mini.pos.model.respone.BrandResponse;
 import co.prime.mini.pos.service.BrandService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
@@ -37,7 +36,7 @@ public class BrandController {
     @GetMapping("/{id}")
     public BaseApi<?> getOneBrand(@PathVariable("id") Long brandId){
          Brand getData = brandService.getByID(brandId);
-         BrandReponse dto = brandMapper.toDTO(getData);
+         BrandResponse dto = brandMapper.toDTO(getData);
         return BaseApi.builder()
                 .status(true)
                 .code(HttpStatus.OK.value())
@@ -61,7 +60,7 @@ public class BrandController {
     }
     @GetMapping("/brands")
     public BaseApi<?> findAll(){
-        List<BrandReponse> list = brandService.getBrands();
+        List<BrandResponse> list = brandService.getBrands();
         return BaseApi.builder()
         .status(true)
         .code(HttpStatus.OK.value())
