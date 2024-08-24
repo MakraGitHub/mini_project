@@ -1,5 +1,6 @@
 package co.prime.mini.pos.controller;
 import co.prime.mini.pos.base.BaseApi;
+import co.prime.mini.pos.model.DTO.PageDTO;
 import co.prime.mini.pos.model.entity.Brand;
 import co.prime.mini.pos.mapper.BrandMapper;
 import co.prime.mini.pos.model.request.BrandRequest;
@@ -8,20 +9,22 @@ import co.prime.mini.pos.service.BrandService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("/brands")
 @RequiredArgsConstructor
 public class BrandController {
 
     private final BrandService brandService;
     private final BrandMapper brandMapper;
-    @PostMapping("/brands")
+    @PostMapping
     public BaseApi<?> create(@Valid @RequestBody BrandRequest request){
         Brand brand = brandMapper.toEntity(request);
         brand = brandService.create(brand);
@@ -34,7 +37,7 @@ public class BrandController {
                 .build();
     }
     @GetMapping("/{id}")
-    public BaseApi<?> getOneBrand(@PathVariable("id") Long brandId){
+    public BaseApi<?> getOneBrand(@Valid @PathVariable("id") Long brandId){
          Brand getData = brandService.getByID(brandId);
          BrandResponse dto = brandMapper.toDTO(getData);
         return BaseApi.builder()
@@ -47,7 +50,7 @@ public class BrandController {
     }
 
     @PutMapping("/{id}")
-    public BaseApi<?> update(@PathVariable("id") Long brandId, @RequestBody BrandRequest request){
+    public BaseApi<?> update(@Valid @PathVariable("id") Long brandId, @RequestBody BrandRequest request){
         Brand brand = brandMapper.toEntity(request);
         Brand updateBrand = brandService.update(brandId, brand);
         return BaseApi.builder()
@@ -58,7 +61,7 @@ public class BrandController {
         .data(updateBrand)
         .build();
     }
-    @GetMapping("/brands")
+    @GetMapping()
     public BaseApi<?> findAll(){
         List<BrandResponse> list = brandService.getBrands();
         return BaseApi.builder()
@@ -70,7 +73,7 @@ public class BrandController {
         .build();
     }
     @DeleteMapping("/{id}")
-    public BaseApi<?> deleteBrand(@PathVariable Long id) {
+    public BaseApi<?> deleteBrand(@Valid @PathVariable Long id) {
         Brand brandDTO = brandService.deleteOneBrand(id);
         return  BaseApi.builder()
                 .status(true)
@@ -78,6 +81,20 @@ public class BrandController {
                 .message("brand has been deleted")
                 .timestamp(LocalDateTime.now())
                 .data(brandDTO)
+                .build();
+    }
+    @GetMapping("/page")
+    public BaseApi<?> getAllWithPagination(@Valid @RequestParam Map<String, String> params){
+
+        Page<BrandResponse> withPagination = brandService.getWithPagination(params);
+        PageDTO pageDTO = new PageDTO(withPagination);
+
+        return BaseApi.builder()
+                .status(true)
+                .code(HttpStatus.OK.value())
+                .message("Specification and Pagination have been found")
+                .timestamp(LocalDateTime.now())
+                .data(pageDTO)
                 .build();
     }
      

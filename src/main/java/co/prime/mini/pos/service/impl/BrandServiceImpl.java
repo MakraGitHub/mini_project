@@ -6,11 +6,15 @@ import co.prime.mini.pos.mapper.BrandMapper;
 import co.prime.mini.pos.repository.BrandRepository;
 import co.prime.mini.pos.model.respone.BrandResponse;
 import co.prime.mini.pos.service.BrandService;
+import co.prime.mini.pos.service.util.PageUtil;
 import lombok.AllArgsConstructor;
 
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -50,4 +54,25 @@ public class BrandServiceImpl implements BrandService {
        Brand save = brandRepository.save(byId);
        return save;
    }
+
+    @Override
+    public Page<BrandResponse> getWithPagination(Map<String, String> params) {
+
+        int pageLimit = PageUtil.DEFAULT_PAGE_LIMIT;
+        //step 1: check page limit =2
+        if(params.containsKey(PageUtil.PAGE_LIMIT)){
+            pageLimit = Integer.parseInt(params.get(PageUtil.PAGE_LIMIT));
+        }
+
+        //Step 2:check page number
+        int pageNumber = PageUtil.DEFAULT_PAGE_NUMBER;
+        if(params.containsKey(PageUtil.PAGE_NUMBER)){
+            pageNumber = Integer.parseInt(params.get(PageUtil.PAGE_NUMBER));
+        }
+
+        Pageable pageable = PageUtil.getPageable(pageNumber, pageLimit);
+        Page<BrandResponse> page =
+                brandRepository.findByIsDeletedIsFalseOrderByIdDesc(pageable).map(itemBrandMapper::toDTO);
+        return page;
+    }
 }

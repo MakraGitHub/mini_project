@@ -14,6 +14,5 @@ public class Brand {
     @Column(name = "brand_name")
     private String name;
     @Column(columnDefinition = "BOOLEAN DEFAULT false")
-    private Boolean isDeleted;
-
+    private Boolean isDeleted = false;
 }

@@ -1,9 +1,11 @@
 package co.prime.mini.pos.service;
 
 import java.util.List;
+import java.util.Map;
 
 import co.prime.mini.pos.model.entity.Brand;
 import co.prime.mini.pos.model.respone.BrandResponse;
+import org.springframework.data.domain.Page;
 
 public interface BrandService {
     Brand create(Brand brand);
@@ -11,5 +13,6 @@ public interface BrandService {
     Brand update(Long id, Brand newBrand);
     List<BrandResponse> getBrands();
     Brand deleteOneBrand(Long id);
+    Page<BrandResponse> getWithPagination(Map<String, String> params);
 
 }
