@@ -39,7 +39,6 @@ public class BrandServiceImpl implements BrandService {
         Brand brand = getByID(id);
         brand.setName(newBrand.getName());
         return brandRepository.save(brand);
-        
     }
     @Override
     public List<BrandResponse> getBrands() {
@@ -49,8 +48,8 @@ public class BrandServiceImpl implements BrandService {
     }
    @Override
    public Brand deleteOneBrand(Long id) {
-      Brand byId = getByID(id);
-      byId.setIsDeleted(true);
+       Brand byId = getByID(id);
+       byId.setIsDeleted(true);
        Brand save = brandRepository.save(byId);
        return save;
    }

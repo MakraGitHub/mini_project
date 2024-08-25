@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -64,6 +65,18 @@ public class GlobalExceptionHandler {
                 .message("The HTTP method used is not supported for this endpoint.")
                 .timestamp(LocalDateTime.now())
                 .errors(errors)
+                .build();
+
+    }
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ExceptionHandler(ResponseStatusException.class)
+    public BaseError<?> handleServiceException(Exception e) {
+        return BaseError.builder()
+                .status(false)
+                .code(HttpStatus.INTERNAL_SERVER_ERROR.value())
+                .message("Something went wrong, please check in error detail!")
+                .timestamp(LocalDateTime.now())
+                .errors(e.getMessage())
                 .build();
 
     }

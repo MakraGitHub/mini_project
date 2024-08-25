@@ -88,7 +88,6 @@ public class BrandController {
 
         Page<BrandResponse> withPagination = brandService.getWithPagination(params);
         PageDTO pageDTO = new PageDTO(withPagination);
-
         return BaseApi.builder()
                 .status(true)
                 .code(HttpStatus.OK.value())
