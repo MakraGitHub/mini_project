@@ -28,21 +28,22 @@ public class SupplierController {
     @PostMapping
     public BaseApi<?> save(@Valid @RequestBody SupplierRequest request){
         Supplier supplier = supplierMapper.toEntity(request);
-        supplier = supplierService.create(supplier);
+        Supplier saveData = supplierService.create(supplier);
+
+        SupplierResponse response = supplierMapper.toDTO(saveData);
 
         return BaseApi.builder()
                 .status(true)
                 .code(HttpStatus.OK.value())
                 .message("Supplies have been save")
                 .timestamp(LocalDateTime.now())
-                .data(supplier)
+                .data(response)
                 .build();
     }
     @GetMapping("/{id}")
     public BaseApi<?> getById(@Valid @PathVariable("id") Long supplierId){
         Supplier supplier = supplierService.getById(supplierId);
         SupplierResponse response = supplierMapper.toDTO(supplier);
-
         return BaseApi.builder()
                 .status(true)
                 .code(HttpStatus.OK.value())
@@ -57,12 +58,14 @@ public class SupplierController {
         Supplier supplier = supplierMapper.toEntity(request);
         Supplier newSupplies = supplierService.updated(supplierId, supplier);
 
+        SupplierResponse response = supplierMapper.toDTO(newSupplies);
+
         return BaseApi.builder()
                 .status(true)
                 .code(HttpStatus.OK.value())
                 .message("Supplies have been update")
                 .timestamp(LocalDateTime.now())
-                .data(newSupplies)
+                .data(response)
                 .build();
     }
     @GetMapping
@@ -81,12 +84,13 @@ public class SupplierController {
     @DeleteMapping("/{id}")
     public BaseApi<?> deleteById(@Valid @PathVariable("id") Long id){
         Supplier deleteById =supplierService.deleteById(id);
+        SupplierResponse response = supplierMapper.toDTO(deleteById);
         return BaseApi.builder()
                 .status(true)
                 .code(HttpStatus.OK.value())
                 .message("Supplier has been deleted")
                 .timestamp(LocalDateTime.now())
-                .data(deleteById)
+                .data(response)
                 .build();
     }
     @GetMapping("/page")

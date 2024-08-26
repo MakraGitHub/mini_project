@@ -27,13 +27,15 @@ public class BrandController {
     @PostMapping
     public BaseApi<?> create(@Valid @RequestBody BrandRequest request){
         Brand brand = brandMapper.toEntity(request);
-        brand = brandService.create(brand);
+        Brand save = brandService.create(brand);
+
+        BrandResponse response = brandMapper.toDTO(save);
         return BaseApi.builder()
                 .status(true)
                 .code(HttpStatus.OK.value())
                 .message("brand has been saved")
                 .timestamp(LocalDateTime.now())
-                .data(brand)
+                .data(response)
                 .build();
     }
     @GetMapping("/{id}")
@@ -53,12 +55,14 @@ public class BrandController {
     public BaseApi<?> update(@Valid @PathVariable("id") Long brandId, @RequestBody BrandRequest request){
         Brand brand = brandMapper.toEntity(request);
         Brand updateBrand = brandService.update(brandId, brand);
+        BrandResponse response = brandMapper.toDTO(updateBrand);
+
         return BaseApi.builder()
         .status(true)
         .code(HttpStatus.ACCEPTED.value())
         .message("brand has been updated")
         .timestamp(LocalDateTime.now())
-        .data(updateBrand)
+        .data(response)
         .build();
     }
     @GetMapping()
@@ -75,12 +79,14 @@ public class BrandController {
     @DeleteMapping("/{id}")
     public BaseApi<?> deleteBrand(@Valid @PathVariable Long id) {
         Brand brandDTO = brandService.deleteOneBrand(id);
+
+        BrandResponse response = brandMapper.toDTO(brandDTO);
         return  BaseApi.builder()
                 .status(true)
                 .code(HttpStatus.OK.value())
                 .message("brand has been deleted")
                 .timestamp(LocalDateTime.now())
-                .data(brandDTO)
+                .data(response)
                 .build();
     }
     @GetMapping("/page")
