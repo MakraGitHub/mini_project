@@ -79,8 +79,8 @@ public class BrandController {
     @DeleteMapping("/{id}")
     public BaseApi<?> deleteBrand(@Valid @PathVariable Long id) {
         Brand brandDTO = brandService.deleteOneBrand(id);
-
         BrandResponse response = brandMapper.toDTO(brandDTO);
+
         return  BaseApi.builder()
                 .status(true)
                 .code(HttpStatus.OK.value())
