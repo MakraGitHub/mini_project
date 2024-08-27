@@ -10,11 +10,12 @@ public class Company {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "company_id")
     private Long id;
+
     @Column(name ="company_local_name")
     private String companyLocalName;
 
-    @Column(name = "customer_eng_name")
-    private String customerEngName;
+    @Column(name = "company_eng_name")
+    private String companyEngName;
 
     @Column(name = "company_email")
     private String companyEmail;

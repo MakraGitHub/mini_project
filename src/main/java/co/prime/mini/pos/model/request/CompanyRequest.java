@@ -7,13 +7,14 @@ import org.hibernate.validator.constraints.Length;
 
 @Data
 public class CompanyRequest {
+
     @NotBlank(message = "Company Local name is required!")
     @Length(min = 4, max = 250, message = "Company Local name between 4 to 70 characters")
     private String companyLocalName;
 
-    @NotBlank(message = "Customer English name is required!")
-    @Length(min = 4, max = 200, message = "Customer english name between 8 to 200 characters")
-    private String customerEngName;
+    @NotBlank(message = "Company English name is required!")
+    @Length(min = 4, max = 200, message = "Company english name between 8 to 200 characters")
+    private String companyEngName;
 
     @NotBlank(message = "Company English name is required!")
     @Length(min = 4, max = 200, message = "Company english name between 8 to 200 characters")

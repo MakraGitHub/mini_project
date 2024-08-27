@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.multipart.support.MissingServletRequestPartException;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDateTime;
@@ -71,14 +72,29 @@ public class GlobalExceptionHandler {
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(ResponseStatusException.class)
     public BaseError<?> handleServiceException(Exception e) {
+        Map<String, Object> body = new HashMap<>();
         return BaseError.builder()
                 .status(false)
                 .code(HttpStatus.INTERNAL_SERVER_ERROR.value())
                 .message("Something went wrong, please check in error detail!")
                 .timestamp(LocalDateTime.now())
-                .errors(e.getMessage())
+                .errors(body)
                 .build();
 
+    }
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(MissingServletRequestPartException.class)
+    public BaseError<?> handleMissingServletRequestPartException(Exception e){
+        Map<String, Object> body = new HashMap<>();
+        body.put("error", "Service Error");
+        body.put("message", e.getMessage());
+        return BaseError.builder()
+                .status(false)
+                .code(HttpStatus.BAD_REQUEST.value())
+                .message("Something went wrong, please check in error detail!")
+                .timestamp(LocalDateTime.now())
+                .errors(body)
+                .build();
     }
 
 }

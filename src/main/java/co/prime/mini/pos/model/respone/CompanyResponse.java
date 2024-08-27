@@ -6,7 +6,7 @@ import lombok.Data;
 public class CompanyResponse {
     private Integer id;
     private String companyLocalName;
-    private String customerEngName;
+    private String companyEngName;
     private String companyEmail;
     private String companyPhone;
     private String vatNumber;
