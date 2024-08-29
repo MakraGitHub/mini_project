@@ -2,8 +2,8 @@ package co.prime.mini.pos.service.impl;
 
 import co.prime.mini.pos.exception.ResourceNotFoundException;
 import co.prime.mini.pos.mapper.ExchangeRateMapper;
-import co.prime.mini.pos.model.entity.ExchangeRate;
-import co.prime.mini.pos.model.respone.ExchangeRateResponse;
+import co.prime.mini.pos.models.entity.ExchangeRate;
+import co.prime.mini.pos.models.respone.ExchangeRateResponse;
 import co.prime.mini.pos.repository.ExchangeRateRepository;
 import co.prime.mini.pos.service.ExchangeRateService;
 import co.prime.mini.pos.service.util.PageUtil;

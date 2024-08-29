@@ -2,8 +2,8 @@ package co.prime.mini.pos.service.impl;
 
 import co.prime.mini.pos.exception.ResourceNotFoundException;
 import co.prime.mini.pos.mapper.CompanyMapper;
-import co.prime.mini.pos.model.entity.Company;
-import co.prime.mini.pos.model.respone.CompanyResponse;
+import co.prime.mini.pos.models.entity.Company;
+import co.prime.mini.pos.models.respone.CompanyResponse;
 import co.prime.mini.pos.repository.CompanyRepository;
 import co.prime.mini.pos.service.CompanyService;
 import co.prime.mini.pos.service.GeneralFileService;

@@ -1,4 +1,4 @@
-package co.prime.mini.pos.model.request;
+package co.prime.mini.pos.models.request;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;

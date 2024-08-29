@@ -2,11 +2,10 @@ package co.prime.mini.pos.controller;
 
 import co.prime.mini.pos.base.BaseApi;
 import co.prime.mini.pos.mapper.GeneralSettingMapper;
-import co.prime.mini.pos.model.DTO.PageDTO;
-import co.prime.mini.pos.model.entity.GeneralSetting;
-import co.prime.mini.pos.model.request.GeneralSettingRequest;
-import co.prime.mini.pos.model.respone.CustomerResponse;
-import co.prime.mini.pos.model.respone.GeneralSettingResponse;
+import co.prime.mini.pos.models.DTO.PageDTO;
+import co.prime.mini.pos.models.entity.GeneralSetting;
+import co.prime.mini.pos.models.request.GeneralSettingRequest;
+import co.prime.mini.pos.models.respone.GeneralSettingResponse;
 import co.prime.mini.pos.service.GeneralSettingService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

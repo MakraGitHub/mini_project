@@ -2,10 +2,10 @@ package co.prime.mini.pos.controller;
 
 import co.prime.mini.pos.base.BaseApi;
 import co.prime.mini.pos.mapper.CompanyMapper;
-import co.prime.mini.pos.model.DTO.PageDTO;
-import co.prime.mini.pos.model.entity.Company;
-import co.prime.mini.pos.model.request.CompanyRequest;
-import co.prime.mini.pos.model.respone.CompanyResponse;
+import co.prime.mini.pos.models.DTO.PageDTO;
+import co.prime.mini.pos.models.entity.Company;
+import co.prime.mini.pos.models.request.CompanyRequest;
+import co.prime.mini.pos.models.respone.CompanyResponse;
 import co.prime.mini.pos.service.CompanyService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

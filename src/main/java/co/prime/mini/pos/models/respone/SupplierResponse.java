@@ -1,4 +1,4 @@
-package co.prime.mini.pos.model.respone;
+package co.prime.mini.pos.models.respone;
 import lombok.Data;
 
 @Data

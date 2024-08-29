@@ -2,8 +2,8 @@ package co.prime.mini.pos.service.impl;
 
 import co.prime.mini.pos.exception.ResourceNotFoundException;
 import co.prime.mini.pos.mapper.GeneralSettingMapper;
-import co.prime.mini.pos.model.entity.GeneralSetting;
-import co.prime.mini.pos.model.respone.GeneralSettingResponse;
+import co.prime.mini.pos.models.entity.GeneralSetting;
+import co.prime.mini.pos.models.respone.GeneralSettingResponse;
 import co.prime.mini.pos.repository.GeneralSettingRepository;
 import co.prime.mini.pos.service.GeneralSettingService;
 import co.prime.mini.pos.service.util.PageUtil;

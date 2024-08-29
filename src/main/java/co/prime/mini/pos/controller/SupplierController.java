@@ -2,10 +2,10 @@ package co.prime.mini.pos.controller;
 
 import co.prime.mini.pos.base.BaseApi;
 import co.prime.mini.pos.mapper.SupplierMapper;
-import co.prime.mini.pos.model.DTO.PageDTO;
-import co.prime.mini.pos.model.entity.Supplier;
-import co.prime.mini.pos.model.request.SupplierRequest;
-import co.prime.mini.pos.model.respone.SupplierResponse;
+import co.prime.mini.pos.models.DTO.PageDTO;
+import co.prime.mini.pos.models.entity.Supplier;
+import co.prime.mini.pos.models.request.SupplierRequest;
+import co.prime.mini.pos.models.respone.SupplierResponse;
 import co.prime.mini.pos.service.SupplierService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

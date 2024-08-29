@@ -2,10 +2,10 @@ package co.prime.mini.pos.controller;
 
 import co.prime.mini.pos.base.BaseApi;
 import co.prime.mini.pos.mapper.ExchangeRateMapper;
-import co.prime.mini.pos.model.DTO.PageDTO;
-import co.prime.mini.pos.model.entity.ExchangeRate;
-import co.prime.mini.pos.model.request.ExchangeRateRequest;
-import co.prime.mini.pos.model.respone.ExchangeRateResponse;
+import co.prime.mini.pos.models.DTO.PageDTO;
+import co.prime.mini.pos.models.entity.ExchangeRate;
+import co.prime.mini.pos.models.request.ExchangeRateRequest;
+import co.prime.mini.pos.models.respone.ExchangeRateResponse;
 import co.prime.mini.pos.service.ExchangeRateService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

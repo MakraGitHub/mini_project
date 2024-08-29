@@ -2,8 +2,8 @@ package co.prime.mini.pos.service.impl;
 
 import co.prime.mini.pos.exception.ResourceNotFoundException;
 import co.prime.mini.pos.mapper.SupplierMapper;
-import co.prime.mini.pos.model.entity.Supplier;
-import co.prime.mini.pos.model.respone.SupplierResponse;
+import co.prime.mini.pos.models.entity.Supplier;
+import co.prime.mini.pos.models.respone.SupplierResponse;
 import co.prime.mini.pos.repository.SupplierServiceRepository;
 import co.prime.mini.pos.service.SupplierService;
 import co.prime.mini.pos.service.util.PageUtil;

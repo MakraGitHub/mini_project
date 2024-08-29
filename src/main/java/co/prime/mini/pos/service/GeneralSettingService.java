@@ -1,8 +1,7 @@
 package co.prime.mini.pos.service;
 
-import co.prime.mini.pos.model.entity.GeneralSetting;
-import co.prime.mini.pos.model.respone.CustomerResponse;
-import co.prime.mini.pos.model.respone.GeneralSettingResponse;
+import co.prime.mini.pos.models.entity.GeneralSetting;
+import co.prime.mini.pos.models.respone.GeneralSettingResponse;
 import org.springframework.data.domain.Page;
 
 import java.util.List;

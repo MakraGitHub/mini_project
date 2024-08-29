@@ -1,10 +1,10 @@
 package co.prime.mini.pos.controller;
 import co.prime.mini.pos.base.BaseApi;
-import co.prime.mini.pos.model.DTO.PageDTO;
-import co.prime.mini.pos.model.entity.Brand;
+import co.prime.mini.pos.models.DTO.PageDTO;
+import co.prime.mini.pos.models.entity.Brand;
 import co.prime.mini.pos.mapper.BrandMapper;
-import co.prime.mini.pos.model.request.BrandRequest;
-import co.prime.mini.pos.model.respone.BrandResponse;
+import co.prime.mini.pos.models.request.BrandRequest;
+import co.prime.mini.pos.models.respone.BrandResponse;
 import co.prime.mini.pos.service.BrandService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

@@ -1,7 +1,6 @@
 package co.prime.mini.pos.repository;
 
-import co.prime.mini.pos.model.entity.ExchangeRate;
-import co.prime.mini.pos.model.entity.GeneralSetting;
+import co.prime.mini.pos.models.entity.GeneralSetting;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

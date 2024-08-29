@@ -1,4 +1,4 @@
-package co.prime.mini.pos.model.entity;
+package co.prime.mini.pos.models.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 

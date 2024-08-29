@@ -1,10 +1,10 @@
 package co.prime.mini.pos.service.impl;
 
-import co.prime.mini.pos.model.entity.Brand;
+import co.prime.mini.pos.models.entity.Brand;
 import co.prime.mini.pos.exception.ResourceNotFoundException;
 import co.prime.mini.pos.mapper.BrandMapper;
 import co.prime.mini.pos.repository.BrandRepository;
-import co.prime.mini.pos.model.respone.BrandResponse;
+import co.prime.mini.pos.models.respone.BrandResponse;
 import co.prime.mini.pos.service.BrandService;
 import co.prime.mini.pos.service.util.PageUtil;
 import lombok.AllArgsConstructor;

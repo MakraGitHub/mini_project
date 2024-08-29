@@ -1,8 +1,8 @@
 package co.prime.mini.pos.mapper;
 
-import co.prime.mini.pos.model.entity.Brand;
-import co.prime.mini.pos.model.request.BrandRequest;
-import co.prime.mini.pos.model.respone.BrandResponse;
+import co.prime.mini.pos.models.entity.Brand;
+import co.prime.mini.pos.models.request.BrandRequest;
+import co.prime.mini.pos.models.respone.BrandResponse;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")

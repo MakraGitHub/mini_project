@@ -1,7 +1,7 @@
 package co.prime.mini.pos.service;
 
-import co.prime.mini.pos.model.entity.Supplier;
-import co.prime.mini.pos.model.respone.SupplierResponse;
+import co.prime.mini.pos.models.entity.Supplier;
+import co.prime.mini.pos.models.respone.SupplierResponse;
 import org.springframework.data.domain.Page;
 
 import java.util.List;
