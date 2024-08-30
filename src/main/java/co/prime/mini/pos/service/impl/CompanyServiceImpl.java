@@ -78,10 +78,10 @@ public class CompanyServiceImpl implements CompanyService {
         String destinationPath = fileServerPath + newFileName;
         file.transferTo(new File(destinationPath));
 
-        Company SaveImageCompany = getById(id);
+        Company saveImageCompany = getById(id);
         //Save name path into db.
-        SaveImageCompany.setImagePath(newFileName);
-        return null;
+        saveImageCompany.setImagePath(newFileName);
+        return companyRepository.save(saveImageCompany);
     }
 
     @Override

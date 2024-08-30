@@ -9,6 +9,7 @@ import co.prime.mini.pos.models.respone.CompanyResponse;
 import co.prime.mini.pos.service.CompanyService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +23,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/companies")
 @RequiredArgsConstructor
+@Slf4j
 public class CompanyController {
     private final CompanyService companyService;
     private final CompanyMapper companyMapper;
@@ -114,6 +116,7 @@ public class CompanyController {
             return new ResponseEntity<>("Please upload an image file",
                     HttpStatus.BAD_REQUEST);
         }
+        log.info("file saved",file);
         Company saveImage = companyService.saveImage(id, file);
         CompanyResponse response = companyMapper.toDTO(saveImage);
 

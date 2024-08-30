@@ -20,6 +20,6 @@ public class GeneralFileServiceImpl implements GeneralFileService {
          }
          String fileExtension = originalFile.substring(lastIndex);
 
-        return fileExtension+timeStamp;
+        return timeStamp+fileExtension;
     }
 }
