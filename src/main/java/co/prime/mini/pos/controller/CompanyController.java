@@ -116,7 +116,7 @@ public class CompanyController {
             return new ResponseEntity<>("Please upload an image file",
                     HttpStatus.BAD_REQUEST);
         }
-        log.info("file saved",file);
+        //log.info("file saved",file);
         Company saveImage = companyService.saveImage(id, file);
         CompanyResponse response = companyMapper.toDTO(saveImage);
 

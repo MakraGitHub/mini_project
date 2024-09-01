@@ -4,10 +4,8 @@ import co.prime.mini.pos.base.BaseApi;
 import co.prime.mini.pos.mapper.CategoryMapper;
 import co.prime.mini.pos.models.DTO.PageDTO;
 import co.prime.mini.pos.models.entity.Category;
-import co.prime.mini.pos.models.entity.Company;
 import co.prime.mini.pos.models.request.CategoryRequest;
 import co.prime.mini.pos.models.respone.CategoryResponse;
-import co.prime.mini.pos.models.respone.CompanyResponse;
 import co.prime.mini.pos.service.CategoryService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -73,7 +71,7 @@ public class CategoryController {
     @DeleteMapping("/{id}")
     public BaseApi<?> delete(@Valid @PathVariable Long id){
         Category category = categoryService.deleteById(id);
-        CategoryResponse response = categoryMapper.toDto(category);
+      CategoryResponse response = categoryMapper.toDto(category);
         return BaseApi.builder()
                 .status(true)
                 .code(HttpStatus.OK.value())
@@ -119,10 +117,10 @@ public class CategoryController {
             return new ResponseEntity<>("Please upload an image file",
                     HttpStatus.BAD_REQUEST);
         }
-        log.info("file saved",file);
+        //log.info("file saved",file);
         Category saveImage = categoryService.saveImage(id, file);
-        CategoryResponse response = categoryMapper.toDto(saveImage);
-
-        return ResponseEntity.ok(response);
+       // CategoryResponse response = categoryMapper.toDto(saveImage);
+        log.info("file saved",saveImage);
+        return ResponseEntity.ok(saveImage);
     }
 }

@@ -28,6 +28,21 @@ public class CategoryServiceImpl implements CategoryService {
     private final CategoryMapper itemCategoryMapper;
     private  final GeneralFileService generalFileService;
 
+    private CategoryResponse toDto(Category category) {
+        CategoryResponse response = new CategoryResponse();
+        response.setId(Math.toIntExact(category.getId()));
+        response.setCategoryName(category.getCategoryName());
+        response.setCategoryCode(category.getCategoryCode());
+        response.setParentId(category.getParent() != null ? category.getParent().getId() : null);
+        response.setImagePath(category.getCategoryPath());
+        // Recursively map child categories
+        response.setChildren(category.getChildren().stream()
+                .map(this::toDto)
+                .collect(Collectors.toList()));
+
+        return response;
+    }
+
     @Value("${file.server-path}")
     private String fileServerPath;
 
@@ -74,10 +89,19 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public List<CategoryResponse> listAll() {
-        return categoryRepository.findByIsDeletedIsFalseOrderByIdDesc()
+        List<Category> categories = categoryRepository.findByIsDeletedIsFalseOrderByIdDesc();
+
+        List<CategoryResponse> categoryResponses = categories.stream()
+                .map(this::toDto)
+                .collect(Collectors.toList());
+
+        return categoryResponses.stream()
+                .filter(category -> category.getParentId() == null)
+                .collect(Collectors.toList());
+       /* return categoryRepository.findByIsDeletedIsFalseOrderByIdDesc()
                 .stream()
                 .map(itemCategoryMapper::toDto)
-                .collect(Collectors.toList());
+                .collect(Collectors.toList());*/
     }
 
     @Override
