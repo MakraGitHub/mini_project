@@ -12,7 +12,7 @@ import java.util.Optional;
 @Repository
 public interface CategoryRepository extends JpaRepository<Category, Long> {
   Optional<Category> findByIdIsAndIsDeletedFalse(Long id);
-  List<Category> findByIsDeletedIsFalseOrderByIdDesc();
-
-  Page<Category> findByIsDeletedIsFalseOrderByIdDesc(Pageable pageable);
+  //Mybatis like this @Select("SELECT * FROM Category WHERE parent_id IS NULL AND is_deleted = FALSE ORDER BY id DESC")
+  List<Category> findAllByParentIsNullAndIsDeletedFalseOrderByIdDesc();
+  Page<Category> findAllByParentIsNullAndIsDeletedFalseOrderByIdDesc(Pageable pageable);
 }

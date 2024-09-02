@@ -12,6 +12,6 @@ public interface CategoryMapper {
     Category toEntity(CategoryRequest request);
     @Mapping(target = "parentId",source = "parent.id")
     CategoryResponse toDto(Category itemCategory);
-// I will to update to INSTANCE
+    // I will to update to INSTANCE
 
 }

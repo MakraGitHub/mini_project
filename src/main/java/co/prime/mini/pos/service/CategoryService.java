@@ -15,7 +15,6 @@ public interface CategoryService {
     Category deleteById(Long id);
     Category update(Long id, Category newCategory);
     List<CategoryResponse> listAll();
-
     Page<CategoryResponse> getWithPagination(Map<String, String> params);
     Category saveImage (Long id, MultipartFile file) throws Exception;
 

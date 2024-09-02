@@ -28,7 +28,7 @@ public class CategoryServiceImpl implements CategoryService {
     private final CategoryMapper itemCategoryMapper;
     private  final GeneralFileService generalFileService;
 
-    private CategoryResponse toDto(Category category) {
+  /*  private CategoryResponse toDto(Category category) {
         CategoryResponse response = new CategoryResponse();
         response.setId(Math.toIntExact(category.getId()));
         response.setCategoryName(category.getCategoryName());
@@ -41,7 +41,7 @@ public class CategoryServiceImpl implements CategoryService {
                 .collect(Collectors.toList()));
 
         return response;
-    }
+    }*/
 
     @Value("${file.server-path}")
     private String fileServerPath;
@@ -72,6 +72,14 @@ public class CategoryServiceImpl implements CategoryService {
         Category save = categoryRepository.save(byID);
         return save;
     }
+    @Override
+    public List<CategoryResponse> listAll() {
+            return  categoryRepository.findAllByParentIsNullAndIsDeletedFalseOrderByIdDesc()
+                    .stream()
+                    .map(itemCategoryMapper::toDto)
+                    .collect(Collectors.toList());
+    }
+
 
     @Override
     public Category update(Long id, Category newCategory) {
@@ -86,24 +94,6 @@ public class CategoryServiceImpl implements CategoryService {
         }
         return categoryRepository.save(category);
     }
-
-    @Override
-    public List<CategoryResponse> listAll() {
-        List<Category> categories = categoryRepository.findByIsDeletedIsFalseOrderByIdDesc();
-
-        List<CategoryResponse> categoryResponses = categories.stream()
-                .map(this::toDto)
-                .collect(Collectors.toList());
-
-        return categoryResponses.stream()
-                .filter(category -> category.getParentId() == null)
-                .collect(Collectors.toList());
-       /* return categoryRepository.findByIsDeletedIsFalseOrderByIdDesc()
-                .stream()
-                .map(itemCategoryMapper::toDto)
-                .collect(Collectors.toList());*/
-    }
-
     @Override
     public Page<CategoryResponse> getWithPagination(Map<String, String> params) {
 
@@ -119,7 +109,7 @@ public class CategoryServiceImpl implements CategoryService {
 
         Pageable pageable = PageUtil.getPageable(pageNumber, pageLimit);
        Page<CategoryResponse> page = categoryRepository
-               .findByIsDeletedIsFalseOrderByIdDesc(pageable)
+               .findAllByParentIsNullAndIsDeletedFalseOrderByIdDesc(pageable)
                .map(itemCategoryMapper::toDto);
 
        // update condition specification

@@ -71,7 +71,7 @@ public class CategoryController {
     @DeleteMapping("/{id}")
     public BaseApi<?> delete(@Valid @PathVariable Long id){
         Category category = categoryService.deleteById(id);
-      CategoryResponse response = categoryMapper.toDto(category);
+        CategoryResponse response = categoryMapper.toDto(category);
         return BaseApi.builder()
                 .status(true)
                 .code(HttpStatus.OK.value())
@@ -91,15 +91,13 @@ public class CategoryController {
                 .data(list)
                 .build();
     }
-    @ResponseStatus(HttpStatus.NO_CONTENT)
     @GetMapping("/getPagination")
     public BaseApi<?> getWithPagination(@Valid @RequestParam Map<String, String> params){
         Page<CategoryResponse> responses = categoryService.getWithPagination(params);
         PageDTO dto = new PageDTO(responses);
-
         return BaseApi.builder()
                 .status(true)
-                .code(HttpStatus.NO_CONTENT.value())
+                .code(HttpStatus.OK.value())
                 .message("Pagination has been found")
                 .timestamp(LocalDateTime.now())
                 .data(dto)
