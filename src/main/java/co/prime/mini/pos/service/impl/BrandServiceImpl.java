@@ -47,13 +47,12 @@ public class BrandServiceImpl implements BrandService {
               .collect(Collectors.toList());
     }
    @Override
-   public Brand deleteOneBrand(Long id) {
+   public Brand deleteById(Long id) {
        Brand byId = getByID(id);
        byId.setIsDeleted(true);
        Brand save = brandRepository.save(byId);
        return save;
    }
-
     @Override
     public Page<BrandResponse> getWithPagination(Map<String, String> params) {
 

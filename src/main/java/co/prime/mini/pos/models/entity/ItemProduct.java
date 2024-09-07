@@ -20,7 +20,7 @@ public class ItemProduct {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "product_type",length = 10)
-    private EnumProdcut prodcutType;
+    private EnumProdcut productType;
 
     @Column(name = "barcodeSybology")
     private String barcodeSymbology;
@@ -51,7 +51,7 @@ public class ItemProduct {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "brand_id")
-    private Brand itemBrand;
+    private Brand brand;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")

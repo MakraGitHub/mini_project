@@ -1,7 +1,6 @@
 package co.prime.mini.pos.exception;
 
 import co.prime.mini.pos.base.BaseError;
-import co.prime.mini.pos.service.GeneralFileService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;

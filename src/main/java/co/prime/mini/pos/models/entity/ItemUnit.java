@@ -38,4 +38,7 @@ public class ItemUnit {
     @JsonBackReference
     private List<ItemUnit> chidrent;
 
+    @Column(name = "is_deleted",columnDefinition = "BOOLEAN DEFAULT true")
+    private Boolean isDeleted = false;
+
 }

@@ -12,7 +12,7 @@ public interface BrandService {
     Brand getByID(Long id);
     Brand update(Long id, Brand newBrand);
     List<BrandResponse> getBrands();
-    Brand deleteOneBrand(Long id);
+    Brand deleteById(Long id);
     Page<BrandResponse> getWithPagination(Map<String, String> params);
 
 }
