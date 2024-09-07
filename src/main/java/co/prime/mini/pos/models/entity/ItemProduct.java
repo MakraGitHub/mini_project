@@ -1,6 +1,6 @@
 package co.prime.mini.pos.models.entity;
 
-import co.prime.mini.pos.models.enums.EnumProdcut;
+import co.prime.mini.pos.models.enums.EnumProduct;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -20,7 +20,7 @@ public class ItemProduct {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "product_type",length = 10)
-    private EnumProdcut productType;
+    private EnumProduct productType;
 
     @Column(name = "barcodeSybology")
     private String barcodeSymbology;

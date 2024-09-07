@@ -1,5 +1,6 @@
 package co.prime.mini.pos.models.enums;
-public enum EnumItemUnit {
+public enum  EnumItemUnit{
     DIVIDE,
+    STANDARD,
     MULTIPLY,
 }
