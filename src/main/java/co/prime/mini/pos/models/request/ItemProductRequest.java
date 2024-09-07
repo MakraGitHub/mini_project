@@ -8,7 +8,7 @@ import org.hibernate.validator.constraints.Length;
 
 @Data
 public class ItemProductRequest {
-    private Long brandId;
+    private Integer brandId;
 
     @NotBlank(message = "Name is required!")
     @NotNull(message = "Name Can't be null")

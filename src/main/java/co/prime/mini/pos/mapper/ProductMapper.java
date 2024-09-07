@@ -9,7 +9,7 @@ import org.mapstruct.Mapping;
 
 @Mapper(componentModel = "spring",uses = {MapperHelper.class})
 public interface ProductMapper {
-      @Mapping(target = "brand.id",source = "brandId",qualifiedByName = "getBrandById")
+      @Mapping(target = "brand",source = "brandId",qualifiedByName = "getBrandById")
       ItemProduct toEntity(ItemProductRequest dto);
       @Mapping(target = "brandId", source = "brand.id")
       ItemProductResponse toDTO(ItemProduct list);
