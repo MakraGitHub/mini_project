@@ -16,4 +16,5 @@ public class CategoryRequest {
 
     private Long parentId;
     private String imagePath;
+
 }

@@ -28,21 +28,6 @@ public class CategoryServiceImpl implements CategoryService {
     private final CategoryMapper itemCategoryMapper;
     private  final GeneralFileService generalFileService;
 
-  /*  private CategoryResponse toDto(Category category) {
-        CategoryResponse response = new CategoryResponse();
-        response.setId(Math.toIntExact(category.getId()));
-        response.setCategoryName(category.getCategoryName());
-        response.setCategoryCode(category.getCategoryCode());
-        response.setParentId(category.getParent() != null ? category.getParent().getId() : null);
-        response.setImagePath(category.getCategoryPath());
-        // Recursively map child categories
-        response.setChildren(category.getChildren().stream()
-                .map(this::toDto)
-                .collect(Collectors.toList()));
-
-        return response;
-    }*/
-
     @Value("${file.server-path}")
     private String fileServerPath;
 
