@@ -2,17 +2,20 @@ package co.prime.mini.pos.controller;
 
 import co.prime.mini.pos.base.BaseApi;
 import co.prime.mini.pos.mapper.ItemUnitMapper;
+import co.prime.mini.pos.models.DTO.PageDTO;
 import co.prime.mini.pos.models.entity.ItemUnit;
 import co.prime.mini.pos.models.request.ItemUnitRequest;
 import co.prime.mini.pos.models.respone.ItemUnitResponse;
 import co.prime.mini.pos.service.ItemUnitService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/units")
@@ -85,6 +88,18 @@ public class ItemUnitController {
                 .message("Item unit have been found")
                 .timestamp(LocalDateTime.now())
                 .data(list)
+                .build();
+    }
+    @GetMapping("/getWithPagination")
+    public BaseApi<?> getWithPagination(@Valid @RequestParam Map<String, String > params){
+        Page<ItemUnitResponse> responses = itemUnitService.getAllWithPagination(params);
+        PageDTO dto = new PageDTO(responses);
+        return BaseApi.builder()
+                .status(true)
+                .code(HttpStatus.OK.value())
+                .message("Item unit have been found")
+                .timestamp(LocalDateTime.now())
+                .data(dto)
                 .build();
     }
 }

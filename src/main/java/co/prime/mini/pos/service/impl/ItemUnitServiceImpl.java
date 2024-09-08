@@ -3,13 +3,18 @@ package co.prime.mini.pos.service.impl;
 import co.prime.mini.pos.exception.ResourceNotFoundException;
 import co.prime.mini.pos.mapper.ItemUnitMapper;
 import co.prime.mini.pos.models.entity.ItemUnit;
+import co.prime.mini.pos.models.respone.CategoryResponse;
 import co.prime.mini.pos.models.respone.ItemUnitResponse;
 import co.prime.mini.pos.repository.ItemUnitRepository;
 import co.prime.mini.pos.service.ItemUnitService;
+import co.prime.mini.pos.service.util.PageUtil;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -68,5 +73,24 @@ public class ItemUnitServiceImpl implements ItemUnitService {
                 .stream()
                 .map(itemUnitMapper::toDTO)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public Page<ItemUnitResponse> getAllWithPagination(Map<String, String> params) {
+        int pageLimit = PageUtil.DEFAULT_PAGE_LIMIT;
+        if(params.containsKey(PageUtil.PAGE_LIMIT)){
+            pageLimit =  Integer.parseInt(params.get(PageUtil.PAGE_LIMIT));
+        }
+
+        int pageNumber = PageUtil.DEFAULT_PAGE_NUMBER;
+        if(params.containsKey(PageUtil.PAGE_NUMBER)){
+            pageNumber = Integer.parseInt(params.get(PageUtil.PAGE_NUMBER));
+        }
+
+        Pageable pageable = PageUtil.getPageable(pageNumber, pageLimit);
+        Page<ItemUnitResponse> page = itemUnitRepository
+                .findAllByParentIsNullAndIsDeletedFalseOrderByIdDesc(pageable)
+                .map(itemUnitMapper::toDTO);
+        return page;
     }
 }
