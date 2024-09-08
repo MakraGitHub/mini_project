@@ -1,18 +1,29 @@
 package co.prime.mini.pos.service.impl;
 
+import co.prime.mini.pos.exception.ResourceNotFoundException;
 import co.prime.mini.pos.mapper.ProductMapper;
 import co.prime.mini.pos.models.entity.ItemProduct;
+import co.prime.mini.pos.models.respone.BrandResponse;
+import co.prime.mini.pos.models.respone.ItemProductResponse;
 import co.prime.mini.pos.repository.ItemProductRepository;
 import co.prime.mini.pos.service.ItemProductService;
+import co.prime.mini.pos.service.util.PageUtil;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
 
 @Service
 @RequiredArgsConstructor
 public class ItemProductServiceImpl implements ItemProductService {
+
     private final ItemProductRepository itemProductRepository;
     private final ProductMapper productMapper;
-    private final  ItemProductRepository productRepository;
     @Override
     public ItemProduct create(ItemProduct itemProduct) {
         ItemProduct parentItemProduct = new ItemProduct();
@@ -29,14 +40,70 @@ public class ItemProductServiceImpl implements ItemProductService {
         parentItemProduct.setPurchaseItemUnit(itemProduct.getPurchaseItemUnit());
         parentItemProduct.setSaleItemUnit(itemProduct.getSaleItemUnit());
 
-        if(itemProduct.getBrand() ==null || itemProduct.getBrand().getId() ==null){
-         return null;
-        }if(itemProduct.getItemCategory() !=null && itemProduct.getItemCategory().getId() !=null){
-            parentItemProduct.setItemCategory(itemProduct.getItemCategory());
-        }if(itemProduct.getItemUnit() !=null && itemProduct.getItemUnit().getParent().getId() !=null){
-            parentItemProduct.setItemUnit(itemProduct.getItemUnit());
+        if(itemProduct.getBrand() ==null || itemProduct.getBrand().getId() ==null) {
+            return null;
+        }
+        return itemProductRepository.save(parentItemProduct);
+    }
+
+    @Override
+    public ItemProduct getById(Long id) {
+        return itemProductRepository.findByIdAndIsDeletedFalse(id)
+                .orElseThrow(()->new ResourceNotFoundException("Product",id));
+    }
+
+    @Override
+    public ItemProduct deleteById(Long id) {
+        ItemProduct product = getById(id);
+        product.setIsDeleted(true);
+        ItemProduct save = itemProductRepository.save(product);
+        return save;
+    }
+
+    @Override
+    public List<ItemProductResponse> getAllProducts() {
+        return itemProductRepository.findByIsDeletedIsFalseOrderByIdDesc()
+                .stream()
+                .map(productMapper::toDTO)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public ItemProduct update(Long id, ItemProduct product) {
+        ItemProduct itemProduct = getById(id);
+        itemProduct.setProductName(product.getProductName());
+        itemProduct.setProductCode(product.getProductCode());
+        itemProduct.setProductType(product.getProductType());
+        itemProduct.setCost(product.getCost());
+        itemProduct.setPrice(product.getPrice());
+        itemProduct.setQty(product.getQty());
+        itemProduct.setAlertQty(itemProduct.getAlertQty());
+        itemProduct.setBrand(itemProduct.getBrand());
+        itemProduct.setItemCategory(itemProduct.getItemCategory());
+        itemProduct.setItemUnit(itemProduct.getItemUnit());
+        itemProduct.setPurchaseItemUnit(itemProduct.getPurchaseItemUnit());
+        itemProduct.setSaleItemUnit(itemProduct.getSaleItemUnit());
+
+        return itemProductRepository.save(itemProduct);
+    }
+
+    @Override
+    public Page<ItemProductResponse> getWithPagination(Map<String, String> params) {
+        int pageLimit = PageUtil.DEFAULT_PAGE_LIMIT;
+        //step 1: check page limit =2
+        if(params.containsKey(PageUtil.PAGE_LIMIT)){
+            pageLimit = Integer.parseInt(params.get(PageUtil.PAGE_LIMIT));
         }
 
-        return itemProductRepository.save(parentItemProduct);
+        //Step 2:check page number
+        int pageNumber = PageUtil.DEFAULT_PAGE_NUMBER;
+        if(params.containsKey(PageUtil.PAGE_NUMBER)){
+            pageNumber = Integer.parseInt(params.get(PageUtil.PAGE_NUMBER));
+        }
+
+        Pageable pageable = PageUtil.getPageable(pageNumber, pageLimit);
+        Page<ItemProductResponse> page =
+                itemProductRepository.findByIsDeletedIsFalseOrderByIdDesc(pageable).map(productMapper::toDTO);
+        return page;
     }
 }
