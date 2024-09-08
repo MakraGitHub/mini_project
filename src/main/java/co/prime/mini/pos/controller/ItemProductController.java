@@ -8,6 +8,7 @@ import co.prime.mini.pos.models.respone.ItemProductResponse;
 import co.prime.mini.pos.service.ItemProductService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,6 +20,7 @@ import java.time.LocalDateTime;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("products")
+@Slf4j
 public class ItemProductController {
     private final ItemProductService itemProductService;
     private final ProductMapper productMapper;
@@ -27,7 +29,7 @@ public class ItemProductController {
     public BaseApi<?> create(@Valid @RequestBody ItemProductRequest request){
         ItemProduct create = productMapper.toEntity(request);
         ItemProduct load = itemProductService.create(create);
-
+        log.info("Load data",load);
         ItemProductResponse response = productMapper.toDTO(load);
 
         return BaseApi.builder()

@@ -12,9 +12,31 @@ import org.springframework.stereotype.Service;
 public class ItemProductServiceImpl implements ItemProductService {
     private final ItemProductRepository itemProductRepository;
     private final ProductMapper productMapper;
-
+    private final  ItemProductRepository productRepository;
     @Override
     public ItemProduct create(ItemProduct itemProduct) {
-        return itemProductRepository.save(itemProduct);
+        ItemProduct parentItemProduct = new ItemProduct();
+        parentItemProduct.setProductCode(itemProduct.getProductCode());
+        parentItemProduct.setProductName(itemProduct.getProductName());
+        parentItemProduct.setProductType(itemProduct.getProductType());
+        parentItemProduct.setCost(itemProduct.getCost());
+        parentItemProduct.setPrice(itemProduct.getPrice());
+        parentItemProduct.setQty(itemProduct.getQty());
+        parentItemProduct.setAlertQty(itemProduct.getAlertQty());
+        parentItemProduct.setBrand(itemProduct.getBrand());
+        parentItemProduct.setItemCategory(itemProduct.getItemCategory());
+        parentItemProduct.setItemUnit(itemProduct.getItemUnit());
+        parentItemProduct.setPurchaseItemUnit(itemProduct.getPurchaseItemUnit());
+        parentItemProduct.setSaleItemUnit(itemProduct.getSaleItemUnit());
+
+        if(itemProduct.getBrand() ==null || itemProduct.getBrand().getId() ==null){
+         return null;
+        }if(itemProduct.getItemCategory() !=null && itemProduct.getItemCategory().getId() !=null){
+            parentItemProduct.setItemCategory(itemProduct.getItemCategory());
+        }if(itemProduct.getItemUnit() !=null && itemProduct.getItemUnit().getParent().getId() !=null){
+            parentItemProduct.setItemUnit(itemProduct.getItemUnit());
+        }
+
+        return itemProductRepository.save(parentItemProduct);
     }
 }
