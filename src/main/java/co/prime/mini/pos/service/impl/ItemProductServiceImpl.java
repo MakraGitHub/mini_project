@@ -3,16 +3,19 @@ package co.prime.mini.pos.service.impl;
 import co.prime.mini.pos.exception.ResourceNotFoundException;
 import co.prime.mini.pos.mapper.ProductMapper;
 import co.prime.mini.pos.models.entity.ItemProduct;
-import co.prime.mini.pos.models.respone.BrandResponse;
 import co.prime.mini.pos.models.respone.ItemProductResponse;
 import co.prime.mini.pos.repository.ItemProductRepository;
+import co.prime.mini.pos.service.GeneralFileService;
 import co.prime.mini.pos.service.ItemProductService;
 import co.prime.mini.pos.service.util.PageUtil;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -24,6 +27,10 @@ public class ItemProductServiceImpl implements ItemProductService {
 
     private final ItemProductRepository itemProductRepository;
     private final ProductMapper productMapper;
+    private final GeneralFileService generalFileService;
+
+    @Value("${file.server-path}")
+    private String fileServerPath;
     @Override
     public ItemProduct create(ItemProduct itemProduct) {
         ItemProduct parentItemProduct = new ItemProduct();
@@ -105,5 +112,17 @@ public class ItemProductServiceImpl implements ItemProductService {
         Page<ItemProductResponse> page =
                 itemProductRepository.findByIsDeletedIsFalseOrderByIdDesc(pageable).map(productMapper::toDTO);
         return page;
+    }
+
+    @Override
+    public ItemProduct uploadImage(Long id, MultipartFile file) throws Exception {
+         String fileName = generalFileService.generalFile(file.getOriginalFilename());
+
+         String destinationPath = fileServerPath + fileName;
+         file.transferTo(new File(destinationPath));
+
+         ItemProduct saveImageProduct = getById(id);
+        saveImageProduct.setImagePath(fileName);
+        return itemProductRepository.save(saveImageProduct);
     }
 }

@@ -12,7 +12,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -109,4 +111,23 @@ public class ItemProductController {
                 .data(pageDTO)
                 .build();
     }
+
+    @PostMapping("/image/{id}")
+    public ResponseEntity<?> saveImage(@Valid @PathVariable("id") Long id, @RequestParam
+                                       MultipartFile file) throws Exception{
+
+        if(file.isEmpty()){
+            return  new ResponseEntity<>("file to select file upload",
+                    HttpStatus.BAD_REQUEST);
+
+        }
+        if(!file.getContentType().startsWith("image")){
+            return new ResponseEntity<>("Please upload an image file",
+                    HttpStatus.BAD_REQUEST);
+        }
+        ItemProduct save = itemProductService.uploadImage(id, file);
+        ItemProductResponse response = productMapper.toDTO(save);
+        return ResponseEntity.ok(save);
+    }
+
 }
